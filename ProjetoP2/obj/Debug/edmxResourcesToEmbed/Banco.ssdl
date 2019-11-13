@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BancoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cidade">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="populacao" Type="float" Nullable="false" />
+    <Property Name="id_pais" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="continente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="populacao" Type="float" Nullable="false" />
+    <Property Name="area" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="hotel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="id_cidade" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pais">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="populacao" Type="float" Nullable="false" />
+    <Property Name="regine" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="area" Type="float" Nullable="false" />
+    <Property Name="presidente" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="moeda" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="idioma" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="capital" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="dt_marcante" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pais_continente">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id_pais" Type="int" Nullable="false" />
+    <Property Name="id_continente" Type="int" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="quarto_hotel">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id_hotel" Type="int" Nullable="false" />
+    <Property Name="tipo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="preco" Type="float" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_cidade_pais">
+    <End Role="pais" Type="Self.pais" Multiplicity="1" />
+    <End Role="cidade" Type="Self.cidade" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pais">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cidade">
+        <PropertyRef Name="id_pais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_continente">
+    <End Role="continente" Type="Self.continente" Multiplicity="1" />
+    <End Role="pais_continente" Type="Self.pais_continente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="continente">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pais_continente">
+        <PropertyRef Name="id_continente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_hotel_cidade">
+    <End Role="cidade" Type="Self.cidade" Multiplicity="1" />
+    <End Role="hotel" Type="Self.hotel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cidade">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="hotel">
+        <PropertyRef Name="id_cidade" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_pais">
+    <End Role="pais" Type="Self.pais" Multiplicity="1" />
+    <End Role="pais_continente" Type="Self.pais_continente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pais">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="pais_continente">
+        <PropertyRef Name="id_pais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_quarto_hotel">
+    <End Role="hotel" Type="Self.hotel" Multiplicity="1" />
+    <End Role="quarto_hotel" Type="Self.quarto_hotel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hotel">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="quarto_hotel">
+        <PropertyRef Name="id_hotel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BancoModelStoreContainer">
+    <EntitySet Name="cidade" EntityType="Self.cidade" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="continente" EntityType="Self.continente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hotel" EntityType="Self.hotel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pais" EntityType="Self.pais" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pais_continente" EntityType="Self.pais_continente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="quarto_hotel" EntityType="Self.quarto_hotel" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_cidade_pais" Association="Self.FK_cidade_pais">
+      <End Role="pais" EntitySet="pais" />
+      <End Role="cidade" EntitySet="cidade" />
+    </AssociationSet>
+    <AssociationSet Name="FK_continente" Association="Self.FK_continente">
+      <End Role="continente" EntitySet="continente" />
+      <End Role="pais_continente" EntitySet="pais_continente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_hotel_cidade" Association="Self.FK_hotel_cidade">
+      <End Role="cidade" EntitySet="cidade" />
+      <End Role="hotel" EntitySet="hotel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_pais" Association="Self.FK_pais">
+      <End Role="pais" EntitySet="pais" />
+      <End Role="pais_continente" EntitySet="pais_continente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_quarto_hotel" Association="Self.FK_quarto_hotel">
+      <End Role="hotel" EntitySet="hotel" />
+      <End Role="quarto_hotel" EntitySet="quarto_hotel" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

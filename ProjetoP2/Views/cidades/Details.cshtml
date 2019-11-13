@@ -1,0 +1,50 @@
+﻿@model ProjetoP2.cidade
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Cidades</h2>
+
+<div>
+    <h4>Detalhes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.populacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.populacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pais.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pais.nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

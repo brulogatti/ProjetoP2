@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ProjetoP2.cidade>
+
+@{
+    ViewBag.Title = "Cidades";
+}
+
+<h2>Cidades</h2>
+<p>
+    @Html.ActionLink("Adicionar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <p>Nome</p>
+        </th>
+        <th>
+            <p>Estado</p>
+        </th>
+        <th>
+            <p>População</p>
+        </th>
+        <th>
+            <p>País da cidade</p>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.populacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pais.nome)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.id }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

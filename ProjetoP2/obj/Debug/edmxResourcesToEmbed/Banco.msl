@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BancoModelStoreContainer" CdmEntityContainer="BancoEntities">
+    <EntitySetMapping Name="cidade">
+      <EntityTypeMapping TypeName="BancoModel.cidade">
+        <MappingFragment StoreEntitySet="cidade">
+          <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+          <ScalarProperty Name="populacao" ColumnName="populacao" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="continente">
+      <EntityTypeMapping TypeName="BancoModel.continente">
+        <MappingFragment StoreEntitySet="continente">
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="populacao" ColumnName="populacao" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hotel">
+      <EntityTypeMapping TypeName="BancoModel.hotel">
+        <MappingFragment StoreEntitySet="hotel">
+          <ScalarProperty Name="id_cidade" ColumnName="id_cidade" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pais">
+      <EntityTypeMapping TypeName="BancoModel.pais">
+        <MappingFragment StoreEntitySet="pais">
+          <ScalarProperty Name="dt_marcante" ColumnName="dt_marcante" />
+          <ScalarProperty Name="capital" ColumnName="capital" />
+          <ScalarProperty Name="idioma" ColumnName="idioma" />
+          <ScalarProperty Name="moeda" ColumnName="moeda" />
+          <ScalarProperty Name="presidente" ColumnName="presidente" />
+          <ScalarProperty Name="area" ColumnName="area" />
+          <ScalarProperty Name="regine" ColumnName="regine" />
+          <ScalarProperty Name="populacao" ColumnName="populacao" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pais_continente">
+      <EntityTypeMapping TypeName="BancoModel.pais_continente">
+        <MappingFragment StoreEntitySet="pais_continente">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_continente" ColumnName="id_continente" />
+          <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="quarto_hotel">
+      <EntityTypeMapping TypeName="BancoModel.quarto_hotel">
+        <MappingFragment StoreEntitySet="quarto_hotel">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="preco" ColumnName="preco" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="id_hotel" ColumnName="id_hotel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

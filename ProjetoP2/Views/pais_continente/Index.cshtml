@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ProjetoP2.pais_continente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Países por continente</h2>
+
+<p>
+    @Html.ActionLink("Adicionar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <p>Continente</p>
+        </th>
+        <th>
+            <p>País</p>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.continente.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.pais.nome)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.id }) 
+
+        </td>
+    </tr>
+}
+
+</table>

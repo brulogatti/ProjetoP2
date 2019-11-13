@@ -1,0 +1,56 @@
+﻿@model ProjetoP2.cidade
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Cidade</h2>
+
+<h3>Você tem certeza que deseja deletar isso?</h3>
+<div>
+    <h4>Deletar</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.populacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.populacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pais.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pais.nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Apagar" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar", "Index")
+        </div>
+    }
+</div>

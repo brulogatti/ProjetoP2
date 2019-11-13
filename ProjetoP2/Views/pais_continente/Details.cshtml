@@ -1,0 +1,33 @@
+﻿@model ProjetoP2.pais_continente
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Países por continente</h2>
+
+<div>
+    <h4>Detalhes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <p>Continente</p>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.continente.nome)
+        </dd>
+
+        <dt>
+            <p>País</p>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pais.nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Voltar", "Index")
+</p>

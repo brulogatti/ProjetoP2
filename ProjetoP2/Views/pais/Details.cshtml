@@ -1,0 +1,90 @@
+﻿@model ProjetoP2.pais
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>País</h2>
+
+<div>
+    <h4>Detalhes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.populacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.populacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.regine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.regine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.area)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.area)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.presidente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.presidente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.moeda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.moeda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idioma)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.idioma)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.capital)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.capital)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dt_marcante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dt_marcante)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

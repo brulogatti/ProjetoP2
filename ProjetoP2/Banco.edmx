@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BancoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="populacao" Type="float" Nullable="false" />
+          <Property Name="id_pais" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="continente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="populacao" Type="float" Nullable="false" />
+          <Property Name="area" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_cidade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pais">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="populacao" Type="float" Nullable="false" />
+          <Property Name="regine" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="area" Type="float" Nullable="false" />
+          <Property Name="presidente" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="moeda" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idioma" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="capital" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="dt_marcante" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pais_continente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_pais" Type="int" Nullable="false" />
+          <Property Name="id_continente" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quarto_hotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_hotel" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="preco" Type="float" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_cidade_pais">
+          <End Role="pais" Type="Self.pais" Multiplicity="1" />
+          <End Role="cidade" Type="Self.cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cidade">
+              <PropertyRef Name="id_pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_continente">
+          <End Role="continente" Type="Self.continente" Multiplicity="1" />
+          <End Role="pais_continente" Type="Self.pais_continente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="continente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pais_continente">
+              <PropertyRef Name="id_continente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hotel_cidade">
+          <End Role="cidade" Type="Self.cidade" Multiplicity="1" />
+          <End Role="hotel" Type="Self.hotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hotel">
+              <PropertyRef Name="id_cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pais">
+          <End Role="pais" Type="Self.pais" Multiplicity="1" />
+          <End Role="pais_continente" Type="Self.pais_continente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pais_continente">
+              <PropertyRef Name="id_pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quarto_hotel">
+          <End Role="hotel" Type="Self.hotel" Multiplicity="1" />
+          <End Role="quarto_hotel" Type="Self.quarto_hotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hotel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quarto_hotel">
+              <PropertyRef Name="id_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BancoModelStoreContainer">
+          <EntitySet Name="cidade" EntityType="Self.cidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="continente" EntityType="Self.continente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hotel" EntityType="Self.hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pais" EntityType="Self.pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pais_continente" EntityType="Self.pais_continente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quarto_hotel" EntityType="Self.quarto_hotel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_cidade_pais" Association="Self.FK_cidade_pais">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="cidade" EntitySet="cidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_continente" Association="Self.FK_continente">
+            <End Role="continente" EntitySet="continente" />
+            <End Role="pais_continente" EntitySet="pais_continente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hotel_cidade" Association="Self.FK_hotel_cidade">
+            <End Role="cidade" EntitySet="cidade" />
+            <End Role="hotel" EntitySet="hotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pais" Association="Self.FK_pais">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="pais_continente" EntitySet="pais_continente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quarto_hotel" Association="Self.FK_quarto_hotel">
+            <End Role="hotel" EntitySet="hotel" />
+            <End Role="quarto_hotel" EntitySet="quarto_hotel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BancoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BancoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cidade" EntityType="BancoModel.cidade" />
+          <EntitySet Name="continente" EntityType="BancoModel.continente" />
+          <EntitySet Name="hotel" EntityType="BancoModel.hotel" />
+          <EntitySet Name="pais" EntityType="BancoModel.pais" />
+          <EntitySet Name="pais_continente" EntityType="BancoModel.pais_continente" />
+          <EntitySet Name="quarto_hotel" EntityType="BancoModel.quarto_hotel" />
+          <AssociationSet Name="FK_cidade_pais" Association="BancoModel.FK_cidade_pais">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="cidade" EntitySet="cidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK_hotel_cidade" Association="BancoModel.FK_hotel_cidade">
+            <End Role="cidade" EntitySet="cidade" />
+            <End Role="hotel" EntitySet="hotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_continente" Association="BancoModel.FK_continente">
+            <End Role="continente" EntitySet="continente" />
+            <End Role="pais_continente" EntitySet="pais_continente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quarto_hotel" Association="BancoModel.FK_quarto_hotel">
+            <End Role="hotel" EntitySet="hotel" />
+            <End Role="quarto_hotel" EntitySet="quarto_hotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pais" Association="BancoModel.FK_pais">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="pais_continente" EntitySet="pais_continente" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="cidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="populacao" Type="Double" Nullable="false" />
+          <Property Name="id_pais" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="pais" Relationship="BancoModel.FK_cidade_pais" FromRole="cidade" ToRole="pais" />
+          <NavigationProperty Name="hotel" Relationship="BancoModel.FK_hotel_cidade" FromRole="cidade" ToRole="hotel" />
+        </EntityType>
+        <EntityType Name="continente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="populacao" Type="Double" Nullable="false" />
+          <Property Name="area" Type="Double" Nullable="false" />
+          <NavigationProperty Name="pais_continente" Relationship="BancoModel.FK_continente" FromRole="continente" ToRole="pais_continente" />
+        </EntityType>
+        <EntityType Name="hotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_cidade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cidade" Relationship="BancoModel.FK_hotel_cidade" FromRole="hotel" ToRole="cidade" />
+          <NavigationProperty Name="quarto_hotel" Relationship="BancoModel.FK_quarto_hotel" FromRole="hotel" ToRole="quarto_hotel" />
+        </EntityType>
+        <EntityType Name="pais">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="populacao" Type="Double" Nullable="false" />
+          <Property Name="regine" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="area" Type="Double" Nullable="false" />
+          <Property Name="presidente" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="moeda" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idioma" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="capital" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="dt_marcante" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="cidade" Relationship="BancoModel.FK_cidade_pais" FromRole="pais" ToRole="cidade" />
+          <NavigationProperty Name="pais_continente" Relationship="BancoModel.FK_pais" FromRole="pais" ToRole="pais_continente" />
+        </EntityType>
+        <EntityType Name="pais_continente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_pais" Type="Int32" Nullable="false" />
+          <Property Name="id_continente" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="continente" Relationship="BancoModel.FK_continente" FromRole="pais_continente" ToRole="continente" />
+          <NavigationProperty Name="pais" Relationship="BancoModel.FK_pais" FromRole="pais_continente" ToRole="pais" />
+        </EntityType>
+        <EntityType Name="quarto_hotel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id_hotel" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="preco" Type="Double" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="hotel" Relationship="BancoModel.FK_quarto_hotel" FromRole="quarto_hotel" ToRole="hotel" />
+        </EntityType>
+        <Association Name="FK_cidade_pais">
+          <End Type="BancoModel.pais" Role="pais" Multiplicity="1" />
+          <End Type="BancoModel.cidade" Role="cidade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="cidade">
+              <PropertyRef Name="id_pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_hotel_cidade">
+          <End Type="BancoModel.cidade" Role="cidade" Multiplicity="1" />
+          <End Type="BancoModel.hotel" Role="hotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="hotel">
+              <PropertyRef Name="id_cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_continente">
+          <End Type="BancoModel.continente" Role="continente" Multiplicity="1" />
+          <End Type="BancoModel.pais_continente" Role="pais_continente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="continente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pais_continente">
+              <PropertyRef Name="id_continente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quarto_hotel">
+          <End Type="BancoModel.hotel" Role="hotel" Multiplicity="1" />
+          <End Type="BancoModel.quarto_hotel" Role="quarto_hotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hotel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quarto_hotel">
+              <PropertyRef Name="id_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pais">
+          <End Type="BancoModel.pais" Role="pais" Multiplicity="1" />
+          <End Type="BancoModel.pais_continente" Role="pais_continente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="pais_continente">
+              <PropertyRef Name="id_pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BancoModelStoreContainer" CdmEntityContainer="BancoEntities">
+          <EntitySetMapping Name="cidade">
+            <EntityTypeMapping TypeName="BancoModel.cidade">
+              <MappingFragment StoreEntitySet="cidade">
+                <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+                <ScalarProperty Name="populacao" ColumnName="populacao" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="continente">
+            <EntityTypeMapping TypeName="BancoModel.continente">
+              <MappingFragment StoreEntitySet="continente">
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="populacao" ColumnName="populacao" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hotel">
+            <EntityTypeMapping TypeName="BancoModel.hotel">
+              <MappingFragment StoreEntitySet="hotel">
+                <ScalarProperty Name="id_cidade" ColumnName="id_cidade" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pais">
+            <EntityTypeMapping TypeName="BancoModel.pais">
+              <MappingFragment StoreEntitySet="pais">
+                <ScalarProperty Name="dt_marcante" ColumnName="dt_marcante" />
+                <ScalarProperty Name="capital" ColumnName="capital" />
+                <ScalarProperty Name="idioma" ColumnName="idioma" />
+                <ScalarProperty Name="moeda" ColumnName="moeda" />
+                <ScalarProperty Name="presidente" ColumnName="presidente" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="regine" ColumnName="regine" />
+                <ScalarProperty Name="populacao" ColumnName="populacao" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pais_continente">
+            <EntityTypeMapping TypeName="BancoModel.pais_continente">
+              <MappingFragment StoreEntitySet="pais_continente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_continente" ColumnName="id_continente" />
+                <ScalarProperty Name="id_pais" ColumnName="id_pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quarto_hotel">
+            <EntityTypeMapping TypeName="BancoModel.quarto_hotel">
+              <MappingFragment StoreEntitySet="quarto_hotel">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="id_hotel" ColumnName="id_hotel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
