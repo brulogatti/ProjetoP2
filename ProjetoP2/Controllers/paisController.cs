@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using ProjetoP2;
 
 namespace ProjetoP2.Controllers
@@ -92,16 +93,36 @@ namespace ProjetoP2.Controllers
         // GET: pais/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            string message = "Deseja verificar se existem cidades atreladas a esse país?";
+            string caption = "Atenção!";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            // Displays the MessageBox.
+
+            result = MessageBox.Show(message, caption, buttons,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.RightAlign);
+
+            if (result == DialogResult.Yes)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                return Redirect("/cidades/Index");
+
             }
-            pais pais = db.pais.Find(id);
-            if (pais == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                pais pais = db.pais.Find(id);
+                if (pais == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(pais);
             }
-            return View(pais);
         }
 
         // POST: pais/Delete/5

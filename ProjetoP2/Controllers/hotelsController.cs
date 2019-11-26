@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using ProjetoP2;
 
 namespace ProjetoP2.Controllers
@@ -97,16 +98,37 @@ namespace ProjetoP2.Controllers
         // GET: hotels/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            string message = "Deseja verificar se existem quartos atrelados a esse hotel?";
+            string caption = "Atenção!";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+
+            // Displays the MessageBox.
+
+            result = MessageBox.Show(message, caption, buttons,
+                MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.RightAlign);
+
+            if (result == DialogResult.Yes)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                return Redirect("/quarto_hotel/Index");
+
             }
-            hotel hotel = db.hotel.Find(id);
-            if (hotel == null)
-            {
-                return HttpNotFound();
+            else
+            { 
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                hotel hotel = db.hotel.Find(id);
+                if (hotel == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(hotel);
             }
-            return View(hotel);
+            
         }
 
         // POST: hotels/Delete/5
@@ -128,5 +150,7 @@ namespace ProjetoP2.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }
